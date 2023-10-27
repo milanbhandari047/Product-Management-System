@@ -1,17 +1,42 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import "./Home.css"
 import Navbar from '../../components/Navbar/Navbar'
+import axios from 'axios'
+
 
 const Home = () => {
+const [products,setProducts] =useState([])
+
+  const fetchProduct= async()=>{
+ const response= await axios.get("https://653b2d832e42fd0d54d4c34c.mockapi.io/products")
+setProducts(response.data)
+  }
+
+
+  useEffect(() => {
+    fetchProduct()
+  }, [])
+  
+
+
   return (
     <>
     <Navbar />
-       <div className="card">
-    <img src="product-image.jpg" alt="Product Image" />
-    <h2 className="product-name">Product Name</h2>
-    <p className="product-description">This is a brief product description. It can be longer if needed.</p>
-</div>
+     {
+       
+       products.map((product)=>{
+         return(
+          
+           <div key={product.id} className="card">
+        <img src={product.productImage} alt="Product Image" />
+        <h2 className="product-name">{product.productName}</h2>
+        <p className="product-description">{product.productDescription}</p>
+    </div>
+
+      )
+    })
+}
     </>
   )
 }
