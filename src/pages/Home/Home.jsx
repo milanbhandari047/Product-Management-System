@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import "./Home.css"
 import Navbar from '../../components/Navbar/Navbar'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 
 const Home = () => {
@@ -32,6 +33,7 @@ setProducts(response.data)
         <img src={product.productImage} alt="Product Image" />
         <h2 className="product-name">{product.productName}</h2>
         <p className="product-description">{product.productDescription}</p>
+        <Link to ={`/singleProduct/${product.id}`} > <button>Read More</button> </Link>
     </div>
       )
     })
